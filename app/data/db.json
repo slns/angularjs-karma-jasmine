@@ -1,0 +1,10 @@
+{
+  "social": [
+    {
+      "id":     1,
+      "nome":  "Facebook",
+      "url":   "facebook.com/sersa",
+      "icone": ""
+    }
+  ]
+}
