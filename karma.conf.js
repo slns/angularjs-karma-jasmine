@@ -22,6 +22,7 @@ module.exports = function(config) {
 
         'app/services/contacts/*.js',
         'app/filtros/*.js',
+        'app/components/404/*.js',
         'app/components/contacts/*.js',
         'app/services/social/*.js',
 
@@ -29,6 +30,7 @@ module.exports = function(config) {
 
         'app/services/contacts/*.spec.js',
         'app/filtros/*.spec.js',
+        'app/components/404/*.spec.js',
         'app/components/contacts/*.spec.js',
         'app/services/social/*.spec.js',
     ],

@@ -12,9 +12,9 @@
           <div><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.nascimento | data}} </div>
 
           <div><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.social.nome}} </div>
-          <div><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.social.url}} </div>
-          <div><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.social.icone}} </div>
-          
+          <div ng-if="cc.contato.social.url"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.social.url}} </div>
+          <div ng-if="cc.contato.social.icone"><span class="glyphicon glyphicon-link" aria-hidden="true"></span> {{cc.contato.social.icone}} </div>
+
         </div>
       </div>
     </div>

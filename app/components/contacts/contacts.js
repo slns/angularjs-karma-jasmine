@@ -15,12 +15,11 @@
 				return $state.go('404');
 			}
 
-			if ($state.params.id) {
+			//if ($state.params.id) {
+			if (angular.isDefined(vm.contato.social)) {
 				Social.localizarPorNome(API + '?nome_like=' + vm.contato.social.nome)
 					.then(function (resultado) {
-
-						console.log("Resultado", resultado[0]);
-						if (resultado[0].id === undefined) {
+						if (!resultado[0]) {
 							vm.contato.social.id = undefined;
 							vm.contato.social.erro = 'Nao Encontrado';
 						} else {
@@ -37,7 +36,7 @@
 		.config(function ($stateProvider) {
 
 			$stateProvider
-
+				// Contatos
 				.state('contatos',
 					{
 						url: '/contatos'
@@ -49,7 +48,7 @@
 							}
 						}
 					})
-				// Paginas
+				// Contato
 				.state('contato',
 					{
 						url: '/contato/:id'

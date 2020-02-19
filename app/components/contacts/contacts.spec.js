@@ -12,7 +12,7 @@ describe('Controlador para os contatos', function() {
 		'id': 1,
 		'nome': 'Facebook',
 		'icone': '',
-		'url': 'facebook.com/sw9br',
+		'url': 'facebook.com/sersa',
 
 	};
 
@@ -75,68 +75,7 @@ describe('Controlador para os contatos', function() {
 
 		beforeEach(function(){
 			//Mock um contato válido
-			unicoContato = {
-				id: '2',
-				nome: 'Matheus',
-				sexo: 'Masculino',
-				cidade: 'Valinhos',
-				nascimento: '2008-03-25',
-				social: {
-					nome: 'Facebook',
-				}
-			};
-
-			spyOn(SocialTeste, "localizarPorNome").and.callThrough();
-
-
-			ContatoControladorTeste = $controller('ContatoControlador', {
-				resolveContato: unicoContato, Social: SocialTeste
-			});
-
-		});
-
-		it('Controlador foi definido?', function() {
-			expect(ContatoControladorTeste).toBeDefined();
-		});
-
-		it('Setar a camada de visualização com o objeto contato enviado como parâmetro no controlador', function() {
-			expect(ContatoControladorTeste.contato).toEqual(unicoContato);
-		});
-
-		/*it('A chamada ao localizarPorNome deve retornar um social válido', function() {
-
-			//Verificação antes da chamada ao serviço Social
-			expect(ContatoControladorTeste.contato.social.id).toBeUndefined();
-			expect(ContatoControladorTeste.contato.social.nome).toEqual('Facebook');
-			expect(ContatoControladorTeste.contato.social.url).toBeUndefined();
-			expect(ContatoControladorTeste.contato.social.icone).toBeUndefined();
-
-			//Verificando resultado após chamada a API social a partir do controlador
-			$httpBackend.whenGET(API + '?nome_like=' + unicoContato.social.nome).respond(200, $q.when(RESPONSE_SUCCESS));
-
-			$httpBackend.flush();
-
-			//Espera-se que o objeto contato seja preenchido com as informações Social Media
-			expect(SocialTeste.localizarPorNome).toHaveBeenCalledWith(API + '?nome_like=' + 'Facebook');
-			expect(ContatoControladorTeste.contato.social.id).toEqual(1);
-			expect(ContatoControladorTeste.contato.social.nome).toEqual('Facebook');
-			expect(ContatoControladorTeste.contato.social.url).toContain('facebook');
-			expect(ContatoControladorTeste.contato.social.icone).toEqual('');
-
-		});*/
-
-
-
-	});
-
-	describe('Controlador recebendo um contato válido e um social inválido', function(){
-
-		let unicoContato, ContatoControladorTeste;
-
-		beforeEach(function(){
-
-			//Mock um contato válido
-			unicoContato = {
+		unicoContato = {
 				id: '2',
 				nome: 'Matheus',
 				sexo: 'Masculino',
@@ -149,19 +88,22 @@ describe('Controlador para os contatos', function() {
 
 			spyOn(SocialTeste, "localizarPorNome").and.callThrough();
 
-			ContatoControladorTeste = $controller('ContatoControlador', {resolveContato: unicoContato, Social: SocialTeste});
+			ContatoControladorTeste = $controller('ContatoControlador', {
+				resolveContato: unicoContato, Social: SocialTeste
+			});
 
 		});
 
-		it('Controlador foi definido?', function(){
+		it('Controlador foi definido?', function() {
 			expect(ContatoControladorTeste).toBeDefined();
 		});
 
-		it('Setar a camada de visualização com o objeto contato enviado como parâmetro no controlador', function() {
+		it('Colocar a camada de visualização com o objeto contato enviado como parâmetro no controlador', function() {
 			expect(ContatoControladorTeste.contato).toEqual(unicoContato);
 		});
 
 		it('A chamada ao localizarPorNome nao localiza social pelo nome, retornando undefined e mensagem de erro', function() {
+
 
 			//Verificando resultado após chamada a API social a partir do controlador
 			$httpBackend.whenGET(API + '?nome_like=' + unicoContato.social.nome).respond(200, $q.when(RESPONSE_ERROR_NOT_FOUND));
@@ -173,9 +115,62 @@ describe('Controlador para os contatos', function() {
 			expect(ContatoControladorTeste.contato.social.id).toBeUndefined();
 			expect(ContatoControladorTeste.contato.social.erro).toEqual('Nao Encontrado');
 		});
+	});
+
+	describe('Controlador recebendo um contato válido e um social inválido', function(){
+
+		let unicoContato, ContatoControladorTeste;
+
+		beforeEach(function(){
+
+			//Mock um contato válido
+			unicoContato = {
+
+				id: '2',
+				nome: 'Matheus',
+				sexo: 'Masculino',
+				cidade: 'Valinhos',
+				nascimento: '2008-03-25',
+				social: {
+					nome: 'Facebook',
+				}
+			};
+
+			spyOn(SocialTeste, "localizarPorNome").and.callThrough();
+
+			ContatoControladorTeste = $controller('ContatoControlador', {
+				resolveContato: unicoContato, Social: SocialTeste
+			});
+
+		});
+
+		it('Controlador foi definido?', function(){
+			expect(ContatoControladorTeste).toBeDefined();
+		});
+
+		it('Colocar a camada de visualização com o objeto contato enviado como parâmetro no controlador', function() {
+			expect(ContatoControladorTeste.contato).toEqual(unicoContato);
+		});
+
+		it('A chamada ao localizarPorNome deve retornar um social válido', function() {
+
+			//Verificação antes da chamada ao serviço Social
+			expect(ContatoControladorTeste.contato.social.id).toBeUndefined();
+			expect(ContatoControladorTeste.contato.social.nome).toEqual('Facebook');
+			expect(ContatoControladorTeste.contato.social.url).toBeUndefined();
+			expect(ContatoControladorTeste.contato.social.icone).toBeUndefined();
 
 
+			//Verificando resultado após chamada a API social a partir do controlador
+			$httpBackend.whenGET(API + '?nome_like=' + unicoContato.social.nome).respond(200, $q.when(RESPONSE_SUCCESS));
 
+			$httpBackend.flush();
+
+			//Espera-se que o objeto contato seja preenchido com as informações Social Media
+			 expect(SocialTeste.localizarPorNome).toHaveBeenCalledWith(API + '?nome_like=' + 'Facebook');
+			 expect(ContatoControladorTeste.contato.social.id).toBeUndefined();
+			 expect(ContatoControladorTeste.contato.social.erro).toEqual('Nao Encontrado');
+		});
 	});
 
 	describe('Controlador Contatos recebendo um contato inválido', function() {
@@ -186,7 +181,9 @@ describe('Controlador para os contatos', function() {
 			spyOn($state, "go");
 			spyOn(SocialTeste, "localizarPorNome");
 
-			ContatoControladorTeste = $controller('ContatoControlador', {resolveContato: unicoContato, Social: SocialTeste, $state: $state});
+			ContatoControladorTeste = $controller('ContatoControlador', {
+				resolveContato: unicoContato, Social: SocialTeste, $state: $state
+			});
 		});
 
 		it('Direciona para a página 404', function() {
